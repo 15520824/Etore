@@ -1,24 +1,27 @@
-# Base image
+# Sử dụng image Node.js chính thức từ Docker Hub
 FROM node:16
 
-# Set working directory
+# Tạo thư mục app và thiết lập nó làm thư mục làm việc
 WORKDIR /app
 
-# Copy package.json and yarn.lock
+# Sao chép file package.json và yarn.lock để cài đặt dependencies
 COPY package*.json ./
 COPY yarn.lock ./
 
-# Install dependencies
+# Cài đặt dependencies
 RUN yarn install
 
-# Copy the rest of the application code
+# Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
-# Build the application
-RUN yarn build:shop-gql
+# Cài đặt dotenv
+RUN yarn add dotenv
 
-# Expose the port the app runs on
+# Build ứng dụng (nếu cần thiết)
+RUN yarn codegen && yarn build:shop-gql
+
+# Mở cổng 3000 cho ứng dụng
 EXPOSE 3000
 
-# Start the application
+# Lệnh để khởi động ứng dụng
 CMD ["yarn", "start:shop-gql"]
