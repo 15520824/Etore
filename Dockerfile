@@ -14,9 +14,6 @@ RUN yarn install
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
-# Cài đặt dotenv
-RUN yarn add dotenv
-
 # Build ứng dụng (nếu cần thiết)
 RUN yarn codegen && yarn build:shop-gql
 
