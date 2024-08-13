@@ -15,7 +15,7 @@ RUN yarn install
 COPY . .
 
 # Build ứng dụng (nếu cần thiết)
-RUN yarn codegen && yarn build:shop-gql
+RUN yarn build:shop-gql
 
 # Mở cổng 3000 cho ứng dụng
 EXPOSE 3000
