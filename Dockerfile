@@ -7,23 +7,20 @@ WORKDIR /app
 # Sao chép file package.json và yarn.lock để cài đặt dependencies
 COPY package.json yarn.lock ./
 
-# Cài đặt tất cả dependencies bao gồm cả graphql-let
+# Cài đặt tất cả dependencies cho dự án
 RUN yarn install
 
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
-# Chạy lệnh graphql-let nếu cần thiết
-RUN yarn graphql-let
+# Điều hướng đến thư mục /api/rest
+WORKDIR /app/api/rest
 
-# Chạy lệnh codegen nếu cần thiết
-RUN yarn codegen
+# Cài đặt dependencies cho thư mục /api/rest
+RUN yarn install
 
-# Chạy lệnh build cho shop gql
-RUN yarn build:shop-gql
-
-# Mở cổng 3000 cho ứng dụng
+# Mở cổng 3000 cho ứng dụng (hoặc cổng khác nếu ứng dụng của bạn sử dụng cổng khác)
 EXPOSE 3000
 
-# Lệnh để khởi động ứng dụng
-CMD ["yarn", "start:shop-gql"]  
+# Lệnh để khởi động ứng dụng ở chế độ phát triển
+CMD ["yarn", "start:dev"]
