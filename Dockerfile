@@ -13,6 +13,9 @@ RUN yarn install
 # Sao chép toàn bộ mã nguồn vào container
 COPY . .
 
+# Chạy lệnh graphql-let nếu cần thiết
+RUN yarn graphql-let
+
 # Chạy lệnh codegen nếu cần thiết
 RUN yarn codegen
 
